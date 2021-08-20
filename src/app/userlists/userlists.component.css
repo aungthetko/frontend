@@ -1,0 +1,22 @@
+strong{
+    color: #ec7211ed;
+}
+
+.action-icon-box {
+    text-align: center;
+}
+
+.action-icon-box a {
+    margin-right: 10px;
+}
+
+
+.profile {
+    background:#ec7211ed;
+    color: #fff;
+    padding: 10px;
+}
+
+.profile strong{
+    color:#fff;
+}

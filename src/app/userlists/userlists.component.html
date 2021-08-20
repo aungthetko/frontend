@@ -1,0 +1,52 @@
+<div class="container mt-3">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light main-breadcrumb mb-3">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
+            </li>
+    
+            <li class="nav-item active">
+              <a class="nav-link" [routerLink]="['/user/lists']" routerLinkActive="router-link-active">Users lists</a> 
+            </li>
+          </ul>
+        </div>
+      </nav>
+      
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Profile Image</th>
+            <th scope="col">Firstname</th>
+            <th scope="col">Lastname</th>
+            <th scope="col">Username</th>
+            <th scope="col">ROLE</th>
+            <th scope="col">Is account enable?</th>
+            <th scope="col">Do Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>
+              <div class="profile">
+                <strong>{{user.firstName.charAt(0).toUpperCase()}}{{user.lastName.charAt(0).toUpperCase()}}</strong>
+              </div>
+              </td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>@{{user.username}}</td>
+            <td><strong>{{user.role}}</strong></td>
+            <td><strong>{{user.enabled}}</strong></td>
+            <td>
+              <div class="action-icon-box">
+                <a href="#" class="action-icon"><img src="https://img.icons8.com/dusk/64/000000/pencil--v1.png" width="30px" height="30px"/></a> 
+                <a href="#" class="action-icon"><img src="https://img.icons8.com/color/48/000000/trash--v1.png" width="30px" height="30px"/></a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
