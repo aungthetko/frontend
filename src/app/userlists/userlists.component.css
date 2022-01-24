@@ -1,22 +1,8 @@
-strong{
-    color: #ec7211ed;
+.custom-navbar {
+    background: radial-gradient(circle at 0% -25%,#FF8947 0%,#FF8354 0,#DA2C94 42%,#3E13A5 110%);
 }
 
-.action-icon-box {
-    text-align: center;
-}
-
-.action-icon-box a {
-    margin-right: 10px;
-}
-
-
-.profile {
-    background:#ec7211ed;
+.nav-pills .nav-link.active {
     color: #fff;
-    padding: 10px;
-}
-
-.profile strong{
-    color:#fff;
+    background: radial-gradient(circle at 0% -25%,#FF8947 0%,#FF8354 0,#DA2C94 42%,#3E13A5 110%);
 }

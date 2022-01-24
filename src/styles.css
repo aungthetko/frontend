@@ -2,9 +2,15 @@
 @import 'http://netdna.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css';
 @import 'https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css';
 @import "~leaflet/dist/leaflet.css";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 body{
-    font-family: 'Inter', sans-serif!important;    
+    margin-top:20px;
+    background: #191919!important;
+    font-family: 'Poppins', sans-serif!important;
 }
 
 .map-wrapper {

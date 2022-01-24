@@ -1,12 +1,12 @@
 <div class="container mt-3">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light main-breadcrumb mb-3">
+    <nav class="custom-navbar navbar navbar-expand-lg navbar-light bg-light main-breadcrumb mb-3">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
+              <a class="nav-link" [routerLink]="['/user/home']" href="#">Dashboard <span class="sr-only">(current)</span></a>
             </li>
     
             <li class="nav-item active">
@@ -15,38 +15,99 @@
           </ul>
         </div>
       </nav>
+      <div>
+        
+      </div>
+
+      <div class="flex flex-col">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <table id="excel-table" class="min-w-full divide-y divide-gray-200" 
+                datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Name
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Title
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Status
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Role
+                    </th>
+                    <th scope="col" class="relative px-6 py-3 text-right text-xs font-large text-gray-500 uppercase tracking-wider bg-green-500">
+                      <a href="" (click)="exportExcel()" class="text-warning" style="text-decoration: none;">
+                        Export data as excel <i class="fas fa-cloud-download-alt"></i>
+                      </a>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody *ngFor="let user of users" class="bg-white divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <div class="flex items-center">
+                        <div class="flex-shrink-0 h-10">
+                          <span class="rounded-full h-10 w-10 flex items-center justify-center text-white bg-indigo-400">{{user.firstName.charAt(0).toUpperCase()}}{{user.lastName.charAt(0).toUpperCase()}}</span>
+                        </div>
+                        <div class="ml-4">
+                          <div class="text-sm font-medium text-gray-900">
+                            {{user.firstName}} {{user.lastName}}
+                          </div>
+                          <div class="text-sm text-gray-500">
+                            {{user.email}}
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                      <div class="text-base font-bold text-green-500">{{user.jobTitle}}</div>
+                      <div class="text-sm text-gray-500">{{user.address}}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">  
+                      <div class="space-y-3">
+                        <div>
+                          Enabled 
+                          <span class="px-3 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                          {{user.enabled}}
+                          </span>
+                        </div>
+
+                        <div>
+                          Locked
+                            <span class="px-3 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                              {{!user.locked}}
+                            </span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {{user.role}}
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <div class="flex flex-row-reverse space-x-2 space-x-reverse">
+                        <div>
+                          <button class="rounded-full py-2 px-6 bg-yellow-300 bg-opacity-50 text-yellow-600">
+                            <i class="fas fa-edit"></i>
+                          </button>
+                        </div>
+                        <div>
+                          <button class="rounded-full py-2 px-6 bg-red-300 bg-opacity-50 text-red-600">
+                            <i class="fas fa-trash-alt"></i>
+                          </button>
+                        </div>
+                      </div>  
+                    </td>
+                  </tr>
       
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">Profile Image</th>
-            <th scope="col">Firstname</th>
-            <th scope="col">Lastname</th>
-            <th scope="col">Username</th>
-            <th scope="col">ROLE</th>
-            <th scope="col">Is account enable?</th>
-            <th scope="col">Do Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of users">
-            <td>
-              <div class="profile">
-                <strong>{{user.firstName.charAt(0).toUpperCase()}}{{user.lastName.charAt(0).toUpperCase()}}</strong>
-              </div>
-              </td>
-            <td>{{user.firstName}}</td>
-            <td>{{user.lastName}}</td>
-            <td>@{{user.username}}</td>
-            <td><strong>{{user.role}}</strong></td>
-            <td><strong>{{user.enabled}}</strong></td>
-            <td>
-              <div class="action-icon-box">
-                <a href="#" class="action-icon"><img src="https://img.icons8.com/dusk/64/000000/pencil--v1.png" width="30px" height="30px"/></a> 
-                <a href="#" class="action-icon"><img src="https://img.icons8.com/color/48/000000/trash--v1.png" width="30px" height="30px"/></a>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                  <!-- More people... -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
 </div>

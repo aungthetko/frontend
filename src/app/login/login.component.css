@@ -1,3 +1,19 @@
+.map-wrapper {
+  position: absolute;
+  min-height: 200px;
+  min-width: 340px;
+}
+
+#map {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 20px;
+  height: 100%;
+}
+
 .card {
     margin-bottom: 1.5rem;
     box-shadow: 0 1px 15px 1px rgba(52,40,104,.08);
@@ -34,4 +50,14 @@
     border: 1px solid #e5e9f2;
     border-radius: .2rem;
   }
-  
+
+.form-header {
+    background: radial-gradient(circle at 0% -25%,#FF8947 0%,#FF8354 0,#DA2C94 42%,#3E13A5 110%);
+    color: #fff;
+    padding: 10px;
+}
+
+.btn-signin{
+  background-color:#8b0000!important;
+  color: #fff;
+}

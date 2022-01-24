@@ -11,19 +11,27 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { LoginComponent } from './login/login.component';
 import { UserService } from './service/user.service';
 import { UserlistsComponent } from './userlists/userlists.component';
+import { IndexComponent } from './index/index.component';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    UserlistsComponent
+    UserlistsComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    TableModule,
+    ButtonModule,
+    DataTablesModule
   ],
   providers: [
     UserService, AuthenticationGuard, 

@@ -1,5 +1,5 @@
 <div class="container mt-3">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light main-breadcrumb mb-3">
+  <nav class="custom-navbar navbar navbar-expand-lg navbar-light bg-light main-breadcrumb mb-3">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -14,7 +14,9 @@
         </li>
       </ul>
       <span class="form-inline my-2 my-lg-0">
-        <button (click)="logOut()" class="btn btn-outline-info my-2 my-sm-0" type="submit">Log out <img src="https://img.icons8.com/office/16/000000/logout-rounded.png"/></button>
+        <button (click)="logOut()" type="submit">
+          Log out
+        </button>
       </span>
     </div>
   </nav>
@@ -24,14 +26,14 @@
           <div class="card">
             <div class="card-body">
               <nav class="nav flex-column nav-pills nav-gap-y-1">
-                <a href="#profile" data-toggle="tab" class="nav-item nav-link has-icon nav-link-faded active">
-                  <img src="https://img.icons8.com/office/16/000000/person-male.png" width="24" height="24" class="mr-3"/>Profile 
+                <a href="#pro" data-toggle="tab" class="nav-item nav-link has-icon nav-link-faded active">
+                  <i class="fas fa-user"></i> Profile 
                 </a>
                 <a href="#security" data-bs-toggle="tab" class="nav-item nav-link has-icon nav-link-faded">
-                  <img src="https://img.icons8.com/fluency/48/000000/microsoft-admin.png" width="24" height="24" class="mr-3"/>Security
+                  <i class="fas fa-shield-alt"></i> Security
                 </a>
                 <a href="#account" data-bs-toggle="tab" class="nav-item nav-link has-icon nav-link-faded">
-                  <img src="https://img.icons8.com/dusk/64/000000/gear.png" width="24" height="24" class="mr-3"/>Setting
+                  <i class="fas fa-cog"></i> Setting
                 </a>
               </nav>
             </div>
@@ -45,7 +47,7 @@
             <div class="card-header border-bottom mb-3 d-flex d-md-none">
               <ul class="nav nav-tabs card-header-tabs nav-gap-x-1" role="tablist">
                 <li class="nav-item">
-                  <a href="#profile" data-toggle="tab" class="nav-link has-icon active"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></a>
+                  <a href="#pro" data-toggle="tab" class="nav-link has-icon active"></a>
                 </li>
                 <li class="nav-item">
                   <a href="#security" data-toggle="tab" class="nav-link has-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shield"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></a>
@@ -57,7 +59,7 @@
             </div>
 
             <div class="card-body tab-content">
-              <div class="tab-pane active" id="profile">
+              <div class="tab-pane active" id="pro">
                 <div class="row">
                   <div class="col-8">
                     <h6>PROFILE</h6>

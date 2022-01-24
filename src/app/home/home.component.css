@@ -49,3 +49,12 @@
 .shadow-none {
     box-shadow: none!important;
 }
+
+.custom-navbar {
+    background: radial-gradient(circle at 0% -25%,#FF8947 0%,#FF8354 0,#DA2C94 42%,#3E13A5 110%);
+}
+
+.nav-pills .nav-link.active {
+    color: #fff;
+    background: radial-gradient(circle at 0% -25%,#FF8947 0%,#FF8354 0,#DA2C94 42%,#3E13A5 110%);
+}

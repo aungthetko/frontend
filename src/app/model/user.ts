@@ -14,6 +14,8 @@ export class User {
       public notLocked = false,
       public role = '',
       public enabled = '',
+      public jobTile = '',
+      public address = '',
       public authorities = []) {}
   
   }
