@@ -15,6 +15,7 @@ import { IndexComponent } from './index/index.component';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DataTablesModule } from 'angular-datatables';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { DataTablesModule } from 'angular-datatables';
     HomeComponent,
     LoginComponent,
     UserlistsComponent,
-    IndexComponent
+    IndexComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
