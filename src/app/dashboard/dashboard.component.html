@@ -33,10 +33,12 @@
                 <div class="col-md-12">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <span><i class="fa fa-server"></i> System</span>&nbsp;&nbsp;
+                            <span><i class="fa fa-server"></i> System : {{systemHealth?.status}}</span>&nbsp;&nbsp;
                             <span><i class="fa fa-database"></i> DB:</span>&nbsp;
                             <span><i class="fa fa-hdd-o"></i> Disk Space: </span>&nbsp;&nbsp;
-                            <span><i class="fa fa-microchip"></i> Processors: </span>&nbsp;&nbsp;
+                            <span [ngClass]="{'text-danger' : SystemCPU.measurements[0].value < 2 }">
+                              <i class="fa fa-microchip"></i> Processors : {{SystemCPU.measurements[0].value}}
+                            </span>&nbsp;&nbsp;
                             <span><i class="fa fa-clock-o"></i> Up Time: </span>
                         </li>
                     </ul>
@@ -142,28 +144,28 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                       <tr *ngFor="let trace of traceList">
-                        <td class="px-6 py-4 whitespace-nowrap">
+                        <td (click)="onSelectTrace(trace)" class="px-6 py-4 whitespace-nowrap">
                             <div class="flex-shrink-0 h-10">
                               <span class="flex items-center justify-center text-black">
                                 {{trace?.timestamp | date: 'medium'}}
                               </span>
                           </div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
+                        <td (click)="onSelectTrace(trace)" class="px-6 py-4 whitespace-nowrap">
                             <div class="flex-shrink-0 h-10">
                                 <span class="flex items-center justify-center text-black">
                                   {{trace?.request.method}}
                                 </span>
                             </div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
+                        <td (click)="onSelectTrace(trace)" class="px-6 py-4 whitespace-nowrap">
                             <div class="flex-shrink-0 h-10">
                                 <span class="flex items-center justify-center text-black">
                                     {{trace?.timeTaken}}
                                 </span>
                             </div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                        <td (click)="onSelectTrace(trace)" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
                             [ngSwitch]="trace?.response.status">
                             <div class="flex-shrink-0 h-10">
                                 <span *ngSwitchCase="'200'" class="flex items-center justify-center text-black rounded-full py-1 px-1 bg-green-600 bg-opacity-50">
@@ -183,17 +185,17 @@
                                 </span>
                             </div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td (click)="onSelectTrace(trace)" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                             <div class="flex-shrink-0 h-10">
                                 <span class="flex items-center justify-center text-black">
                                     {{trace?.request.uri}}
                                 </span>
                             </div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <td (click)="onSelectTrace(trace)" class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <div class="flex items-center justify-center">
                             <div class="">
-                              <button class="rounded-full py-2 px-6 bg-blue-300 bg-opacity-50 text-blue-600">
+                              <button (click)="onSelectTrace(trace)" class="rounded-full py-2 px-6 bg-blue-300 bg-opacity-50 text-blue-600">
                                 <i class="fa fa-eye"></i>
                               </button>
                             </div>
@@ -207,5 +209,85 @@
               </div>
             </div>
           </div>
+          <button hidden="true" type="button" id="trace-modal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#trace-info-modal"></button>
     </div>
+
+<!-- Trace Information Modal -->
+<div class="modal fade" id="trace-info-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">HTTP Trace Details</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body right-left-margin">
+            <ul class="nav bg-light nav-pills rounded nav-fill mb-3" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="pill" href="#request">
+                  <i class="fa fa-sitemap"></i> Request</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="pill" href="#response">
+                  <i class="fa fa-sliders"></i> Response</a>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="request">
+                <p>
+                  <strong>Time Stamp :</strong>
+                  {{selectedTrace?.timestamp | date: 'medium'}}
+                </p>
+                <p>
+                  <strong>Time Taken(ms) :</strong>
+                  {{selectedTrace?.timeTaken}}
+                </p>
+                <p>
+                  <strong>Request Method :</strong>
+                  {{selectedTrace?.request.method}}
+                </p>
+                <p>
+                  <strong>Remote Address :</strong>
+                  {{selectedTrace?.request.remoteAddress}}
+                </p>
+                <p>
+                  <strong>URI :</strong>
+                  {{selectedTrace?.request.uri}}
+                </p>
+                <p>
+                  <strong>Origin :</strong>
+                  {{selectedTrace?.request.headers['origin']}}
+                </p>
+                <p>
+                  <strong>User Agent (Web Client) :</strong>
+                  {{selectedTrace?.request.headers['user-agent']}}
+                </p>
+              </div>
+
+              <div class="tab-pane fade" id="response">
+                <dl>
+                  <dt>Status :</dt>
+                  <dd>{{selectedTrace?.response.status}}</dd>
+                </dl>
+                <dl>
+                  <dt>Date :</dt>
+                  <dd>{{selectedTrace?.response.headers['Date']}}</dd>
+                </dl>
+                <dl>
+                  <dt>Content Type :</dt>
+                  <dd>{{selectedTrace?.response.headers['Content-Type']}}</dd>
+                </dl>
+                <p>
+                  <strong>Server Allowed Origins :</strong>
+                  {{selectedTrace?.response.headers['Access-Control-Allow-Origin']}}
+                </p>
+              </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
