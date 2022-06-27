@@ -51,6 +51,8 @@ button.btn-generate {
     outline: none;
     padding: 5px 8px;
     border-radius: 10px;
+    color: #000;
+    font-weight: bold;
 }
 
 .card {

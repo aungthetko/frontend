@@ -1,6 +1,61 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  Chart,
+  ArcElement,
+  LineElement,
+  BarElement,
+  PointElement,
+  BarController,
+  BubbleController,
+  DoughnutController,
+  LineController,
+  PieController,
+  PolarAreaController,
+  RadarController,
+  ScatterController,
+  CategoryScale,
+  LinearScale,
+  LogarithmicScale,
+  RadialLinearScale,
+  TimeScale,
+  TimeSeriesScale,
+  Decimation,
+  Filler,
+  Legend,
+  Title,
+  Tooltip,
+  SubTitle,
+  ChartItem
+} from 'chart.js';
+
+Chart.register(
+  ArcElement,
+  LineElement,
+  BarElement,
+  PointElement,
+  BarController,
+  BubbleController,
+  DoughnutController,
+  LineController,
+  PieController,
+  PolarAreaController,
+  RadarController,
+  ScatterController,
+  CategoryScale,
+  LinearScale,
+  LogarithmicScale,
+  RadialLinearScale,
+  TimeScale,
+  TimeSeriesScale,
+  Decimation,
+  Filler,
+  Legend,
+  Title,
+  Tooltip,
+  SubTitle
+);
 import { Subject } from 'rxjs';
 import { SystemCPU } from '../interface/system-cpu';
 import { SystemHealth } from '../interface/system-health';
@@ -32,13 +87,14 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getTraces();
     this.getCpuUsage();
-    this.getSystemHealth();
+    // this.getSystemHealth();
   }
 
   private getTraces(): void{
     this.dashboardService.getHttpTraces().subscribe(
       (response: any) => {
         this.processTraces(response.traces);
+        this.initializeBarChart();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -56,18 +112,21 @@ export class DashboardComponent implements OnInit {
       }
     )
   }
+  
+  // TO-DO
 
-  private getSystemHealth(): void{
-    this.dashboardService.getSystemHealth().subscribe(
-      (response: SystemHealth) => {
-        console.log(response);
-        this.systemHealth = response;
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    )
-  }
+
+  // private getSystemHealth(): void{
+  //   this.dashboardService.getSystemHealth().subscribe(
+  //     (response: SystemHealth) => {
+  //       console.log(response);
+  //       this.systemHealth = response;
+  //     },
+  //     (error: HttpErrorResponse) => {
+  //       alert(error.message);
+  //     }
+  //   )
+  // }
   
   processTraces(traces: any): void {
     this.traceList = traces;
@@ -90,6 +149,45 @@ export class DashboardComponent implements OnInit {
           break;
       }
     })
+  }
+
+  private initializeBarChart(): Chart {
+    const element: any = document.getElementById('barChart');
+    return new Chart(element, {
+      type: 'bar',
+      data: {
+          labels: ['200', '404', '400', '500'],
+          datasets: [{data: [this.http200Traces.length, this.http404Traces.length, this.http400Traces.length, this.http500Traces.length],
+              backgroundColor: ['#03AC13', '#3388FF', 'rgb(253,126,20)', 'rgb(220,53,69)'],
+              borderColor: ['#03AC13', '#3388FF', 'rgb(253,126,20)', 'rgb(220,53,69)'],
+              borderWidth: 3
+          }]
+      },
+      // options: {
+      //   title: { display: true, text: [`Last 100 Requests as of ${this.formatDate(new Date())}`] },
+      //   legend: { display: false },
+      //   scales: {
+      //         yAxes: [{
+      //             ticks: {
+      //                 beginAtZero: true
+      //             }
+      //         }]
+      //     }
+      // }
+  });
+  }
+
+  private formatDate(date: Date): string {
+    const dd = date.getDate();
+    const mm = date.getMonth() + 1;
+    const year = date.getFullYear();
+    if (dd < 10) {
+      const day = `0${dd}`;
+    }
+    if (mm < 10) {
+      const month = `0${mm}`;
+    }
+    return `${mm}/${dd}/${year}`;
   }
 
   public onSelectTrace(trace: any): void {
