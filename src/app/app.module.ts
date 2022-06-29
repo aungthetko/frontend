@@ -16,6 +16,7 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DataTablesModule } from 'angular-datatables';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HttpClientModule,
     TableModule,
     ButtonModule,
-    DataTablesModule
+    DataTablesModule,
+    NgxPaginationModule
   ],
   providers: [
     UserService, AuthenticationGuard, 

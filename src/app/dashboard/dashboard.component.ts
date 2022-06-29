@@ -57,6 +57,7 @@ Chart.register(
   SubTitle
 );
 import { Subject } from 'rxjs';
+import { ChartType } from '../enum/chart-type';
 import { SystemCPU } from '../interface/system-cpu';
 import { SystemHealth } from '../interface/system-health';
 import { DashboardService } from '../service/dashboard.service';
@@ -78,6 +79,8 @@ export class DashboardComponent implements OnInit {
   public http500Traces: any[] = [];
   public http400Traces: any[] = [];
   public httpDefaultTraces: any[] = [];
+  public pageSize: number = 10;
+  public page: number = 1;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -95,6 +98,8 @@ export class DashboardComponent implements OnInit {
       (response: any) => {
         this.processTraces(response.traces);
         this.initializeBarChart();
+        this.initializePieChart();
+        this.initializeDoughnutChart();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -152,28 +157,74 @@ export class DashboardComponent implements OnInit {
   }
 
   private initializeBarChart(): Chart {
-    const element: any = document.getElementById('barChart');
+    const element: any = document.getElementById('barChart') as HTMLElement;
     return new Chart(element, {
-      type: 'bar',
+      type: ChartType.BAR,
       data: {
-          labels: ['200', '404', '400', '500'],
-          datasets: [{data: [this.http200Traces.length, this.http404Traces.length, this.http400Traces.length, this.http500Traces.length],
-              backgroundColor: ['#03AC13', '#3388FF', 'rgb(253,126,20)', 'rgb(220,53,69)'],
-              borderColor: ['#03AC13', '#3388FF', 'rgb(253,126,20)', 'rgb(220,53,69)'],
+          labels: ['200', '404', '400', '500', '403'],
+          datasets: [{data: [this.http200Traces.length, this.http404Traces.length, this.http400Traces.length, this.http500Traces.length, 18],
+              backgroundColor: ['#03AC13', '#3388FF', 'rgb(253,126,20)', 'rgb(220,53,69)', 'purple'],
+              borderColor: ['#03AC13', '#3388FF', 'rgb(253,126,20)', 'rgb(220,53,69)', 'purple'],
               borderWidth: 3
           }]
       },
-      // options: {
-      //   title: { display: true, text: [`Last 100 Requests as of ${this.formatDate(new Date())}`] },
-      //   legend: { display: false },
-      //   scales: {
-      //         yAxes: [{
-      //             ticks: {
-      //                 beginAtZero: true
-      //             }
-      //         }]
-      //     }
-      // }
+      options: {
+        plugins: {
+            legend: { display: false },
+            title: {
+                display: true,
+                text: [`Last 100 Requests as of ${this.formatDate(new Date())}`]
+            }
+        }
+    }
+  });
+  }
+
+  private initializePieChart(): Chart {
+    const element: any = document.getElementById('pieChart') as HTMLElement;
+    return new Chart(element, {
+      type: ChartType.PIE,
+      data: {
+          labels: ['200', '404', '400', '500', '403'],
+          datasets: [{data: [this.http200Traces.length, this.http404Traces.length, this.http400Traces.length, this.http500Traces.length, 18],
+              backgroundColor: ['#03AC13', '#3388FF', 'rgb(253,126,20)', 'rgb(220,53,69)', 'purple'],
+              borderColor: ['#03AC13', '#3388FF', 'rgb(253,126,20)', 'rgb(220,53,69)', 'purple'],
+              borderWidth: 3
+          }]
+      },
+      options: {
+        plugins: {
+            legend: { display: true },
+            title: {
+                display: true,
+                text: [`Last 100 Requests as of ${this.formatDate(new Date())}`]
+            }
+        }
+    }
+  });
+  }
+
+  private initializeDoughnutChart(): Chart {
+    const element: any = document.getElementById('doughnutChart') as HTMLElement;
+    return new Chart(element, {
+      type: ChartType.DOUGHNUT,
+      data: {
+          labels: ['200', '404', '400', '500', '403'],
+          datasets: [{data: [this.http200Traces.length, this.http404Traces.length, this.http400Traces.length, this.http500Traces.length, 18],
+              backgroundColor: ['#03AC13', '#3388FF', 'rgb(253,126,20)', 'rgb(220,53,69)', 'purple'],
+              borderColor: ['#03AC13', '#3388FF', 'rgb(253,126,20)', 'rgb(220,53,69)', 'purple'],
+              borderWidth: 3
+          }]
+      },
+      options: {
+        plugins: {
+            legend: { display: true },
+            title: {
+                display: true,
+                text: [`Last 100 Requests as of ${this.formatDate(new Date())}`]
+            }
+        }
+    }
   });
   }
 

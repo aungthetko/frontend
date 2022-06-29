@@ -98,118 +98,156 @@
             </div>
         </div>
 
-        <div class="http-status-info">
+        <!-- <div class="http-status-info">
             <div class="row">
                 <div class="col-md-6">
-                    <h4>Bar Chart</h4>
                     <canvas id="barChart" style="display: block;"></canvas>
                 </div>
                 <div class="col-md-6">
-                    <h4>Pie Chart</h4>
                     <canvas id="pieChart" style="display: block;"></canvas>
                 </div>
             </div>
-        </div>
-        
-        <!-- Monitoring status table go here -->
-        <div class="flex flex-col">
-            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                  <table id="excel-table" class="min-w-full divide-y divide-gray-200" 
-                    datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-                    <thead class="bg-gray-50">
-                      <tr>
-                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-gray-500 uppercase tracking-wider">
-                          Time Stamp
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-gray-500 uppercase tracking-wider">
-                          Method
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-gray-500 uppercase tracking-wider">
-                          Time Taken(ms)
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-gray-500 uppercase tracking-wider">
-                          Status
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-gray-500 uppercase tracking-wider">
-                            URL
-                          </th>
-                        <th scope="col" class="relative px-6 py-3 text-right text-xs font-large text-gray-500 uppercase tracking-wider bg-green-500">
-                          <a href="" class="text-warning" style="text-decoration: none;">
-                            Export data as excel <i class="fas fa-cloud-download-alt"></i>
-                          </a>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                      <tr *ngFor="let trace of traceList">
-                        <td (click)="onSelectTrace(trace)" class="px-6 py-4 whitespace-nowrap">
-                            <div class="flex-shrink-0 h-10">
-                              <span class="flex items-center justify-center text-black">
-                                {{trace?.timestamp | date: 'medium'}}
-                              </span>
-                          </div>
-                        </td>
-                        <td (click)="onSelectTrace(trace)" class="px-6 py-4 whitespace-nowrap">
-                            <div class="flex-shrink-0 h-10">
-                                <span class="flex items-center justify-center text-black">
-                                  {{trace?.request.method}}
-                                </span>
-                            </div>
-                        </td>
-                        <td (click)="onSelectTrace(trace)" class="px-6 py-4 whitespace-nowrap">
-                            <div class="flex-shrink-0 h-10">
-                                <span class="flex items-center justify-center text-black">
-                                    {{trace?.timeTaken}}
-                                </span>
-                            </div>
-                        </td>
-                        <td (click)="onSelectTrace(trace)" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                            [ngSwitch]="trace?.response.status">
-                            <div class="flex-shrink-0 h-10">
-                                <span *ngSwitchCase="'200'" class="flex items-center justify-center text-black rounded-full py-1 px-1 bg-green-600 bg-opacity-50">
-                                    {{trace?.response.status}}
-                                </span>
-                                <span *ngSwitchCase="'404'" class="flex items-center justify-center text-black rounded-full py-1 px-1 bg-blue-600 bg-opacity-50">
-                                    {{trace?.response.status}}
-                                </span>
-                                <span *ngSwitchCase="'400'" class="flex items-center justify-center text-black rounded-full py-1 px-1 bg-yellow-600 bg-opacity-50">
-                                    {{trace?.response.status}}
-                                </span>
-                                <span *ngSwitchCase="'500'" class="flex items-center justify-center text-black rounded-full py-1 px-1 bg-red-600 bg-opacity-50">
-                                    {{trace?.response.status}}
-                                </span>
-                                <span *ngSwitchDefault class="flex items-center justify-center text-black">
-                                    {{trace?.response.status}}
-                                </span>
-                            </div>
-                        </td>
-                        <td (click)="onSelectTrace(trace)" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            <div class="flex-shrink-0 h-10">
-                                <span class="flex items-center justify-center text-black">
-                                    {{trace?.request.uri}}
-                                </span>
-                            </div>
-                        </td>
-                        <td (click)="onSelectTrace(trace)" class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <div class="flex items-center justify-center">
-                            <div class="">
-                              <button (click)="onSelectTrace(trace)" class="rounded-full py-2 px-6 bg-blue-300 bg-opacity-50 text-blue-600">
-                                <i class="fa fa-eye"></i>
-                              </button>
-                            </div>
-                          </div>  
-                        </td>
-                      </tr>
-          
-                    </tbody>
-                  </table>
+        </div> -->
+
+        <div class="modal-body right-left-margin">
+          <ul class="nav bg-light nav-pills rounded nav-fill mb-2" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" data-bs-toggle="pill" href="#bar">
+                <i class="fa fa-bar-chart mr-3"></i>Bar Chart</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="pill" href="#pie">
+                <i class="fa fa-pie-chart mr-3"></i>Pie Chart</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="pill" href="#doughnut">
+                <i class="fa fa-circle mr-3"></i>Doughnut Chart</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="pill" href="#table">
+                <i class="fa fa-table mr-3"></i>Data Table</a>
+            </li>
+          </ul>
+          <div class="tab-content bg-white p-3 rounded">
+            <div class="tab-pane fade show active" id="bar">
+              <canvas id="barChart" style="display: block;"></canvas>
+            </div>
+
+            <div class="tab-pane fade" id="pie">
+              <canvas id="pieChart" style="display: block;"></canvas>
+            </div>
+
+            <div class="tab-pane fade" id="doughnut">
+              <canvas id="doughnutChart" style="display: block;"></canvas>
+            </div>
+
+            <div class="tab-pane fade" id="table">
+              <!-- Monitoring status table go here -->
+              <div class="flex flex-col">
+                <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                  <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                      <table id="excel-table" class="min-w-full divide-y divide-gray-200" 
+                        datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+                        <thead class="bg-gray-50">
+                          <tr>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-gray-500 uppercase tracking-wider">
+                              Time Stamp
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-gray-500 uppercase tracking-wider">
+                              Method
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-gray-500 uppercase tracking-wider">
+                              Time Taken(ms)
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-gray-500 uppercase tracking-wider">
+                              Status
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-center text-xs font-bold text-gray-500 uppercase tracking-wider">
+                                URL
+                              </th>
+                            <th scope="col" class="relative px-6 py-3 text-right text-xs font-large text-gray-500 uppercase tracking-wider bg-green-500">
+                              <a href="" class="text-warning" style="text-decoration: none;">
+                                Export data as excel <i class="fas fa-cloud-download-alt"></i>
+                              </a>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                          <tr *ngFor="let trace of traceList | paginate: { id: 'trace-list',
+                              itemsPerPage: pageSize,
+                              currentPage: page,
+                              totalItems: traceList?.length }" style="cursor: pointer;">
+                            <td (click)="onSelectTrace(trace)" class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex-shrink-0 h-10">
+                                  <span class="flex items-center justify-center text-black">
+                                    {{trace?.timestamp | date: 'medium'}}
+                                  </span>
+                              </div>
+                            </td>
+                            <td (click)="onSelectTrace(trace)" class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex-shrink-0 h-10">
+                                    <span class="flex items-center justify-center text-black">
+                                      {{trace?.request.method}}
+                                    </span>
+                                </div>
+                            </td>
+                            <td (click)="onSelectTrace(trace)" class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex-shrink-0 h-10">
+                                    <span class="flex items-center justify-center text-black">
+                                        {{trace?.timeTaken}}
+                                    </span>
+                                </div>
+                            </td>
+                            <td (click)="onSelectTrace(trace)" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+                                [ngSwitch]="trace?.response.status">
+                                <div class="flex-shrink-0 h-10">
+                                    <span *ngSwitchCase="'200'" class="flex items-center justify-center text-black rounded-full py-1 px-1 bg-green-600 bg-opacity-50">
+                                        {{trace?.response.status}}
+                                    </span>
+                                    <span *ngSwitchCase="'404'" class="flex items-center justify-center text-black rounded-full py-1 px-1 bg-blue-600 bg-opacity-50">
+                                        {{trace?.response.status}}
+                                    </span>
+                                    <span *ngSwitchCase="'400'" class="flex items-center justify-center text-black rounded-full py-1 px-1 bg-yellow-600 bg-opacity-50">
+                                        {{trace?.response.status}}
+                                    </span>
+                                    <span *ngSwitchCase="'500'" class="flex items-center justify-center text-black rounded-full py-1 px-1 bg-red-600 bg-opacity-50">
+                                        {{trace?.response.status}}
+                                    </span>
+                                    <span *ngSwitchDefault class="flex items-center justify-center text-black">
+                                        {{trace?.response.status}}
+                                    </span>
+                                </div>
+                            </td>
+                            <td (click)="onSelectTrace(trace)" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <div class="flex-shrink-0 h-10">
+                                    <span class="flex items-center justify-center text-black">
+                                        {{trace?.request.uri}}
+                                    </span>
+                                </div>
+                            </td>
+                            <td (click)="onSelectTrace(trace)" class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                              <div class="flex items-center justify-center">
+                                <div class="">
+                                  <button (click)="onSelectTrace(trace)" class="rounded-full py-2 px-6 bg-blue-300 bg-opacity-50 text-blue-600">
+                                    <i class="fa fa-eye"></i>
+                                  </button>
+                                </div>
+                              </div>  
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <pagination-controls class="text-center" id="trace-list" (pageChange)="page = $event"></pagination-controls>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <button hidden="true" type="button" id="trace-modal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#trace-info-modal"></button>
+    </div>
+      <button hidden="true" type="button" id="trace-modal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#trace-info-modal"></button>
     </div>
 
 <!-- Trace Information Modal -->

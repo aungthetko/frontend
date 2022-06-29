@@ -138,3 +138,9 @@ body{
     color: #fff;
     text-align: center;
 }
+
+.http-status-info {
+    background: #fff;
+    padding: 20px 10px;
+    border-radius: 5px;
+}
